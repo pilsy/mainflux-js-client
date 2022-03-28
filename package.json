@@ -1,0 +1,32 @@
+{
+  "name": "mainflux",
+  "version": "0.1.0",
+  "description": "Mainflux SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/vitor-mariano/mainflux-js-client",
+  "author": "Vítor Mariano <vmatheus.mariano@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "axios": "^0.26.1",
+    "go-catch": "^0.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.6.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.6.3"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn lint",
+    "preversion": "yarn lint"
+  }
+}
