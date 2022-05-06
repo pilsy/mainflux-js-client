@@ -1,6 +1,6 @@
 {
   "name": "mainflux",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "description": "Mainflux SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,14 +9,11 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "axios": "^0.26.1",
-    "go-catch": "^0.2.0"
+    "openapi-typescript-fetch": "^1.1.2"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "jest": "^27.5.1",
+    "openapi-typescript": "^5.3.0",
     "prettier": "^2.6.2",
-    "ts-jest": "^27.1.4",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.6.3"
@@ -27,10 +24,11 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
+    "schemas:generate": "openapi-typescript \"schemas/*.yml\" --output src/generated/",
     "lint": "tslint -p tsconfig.json",
+    "prepublish": "yarn schemas:generate",
     "prepare": "yarn build",
     "prepublishOnly": "yarn lint",
-    "preversion": "yarn lint",
-    "test": "jest"
+    "preversion": "yarn lint"
   }
 }

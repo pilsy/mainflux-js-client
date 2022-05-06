@@ -1,12 +1,38 @@
-export * from "./errors";
-import axios from "axios";
+import { Fetcher } from "openapi-typescript-fetch";
+import { paths as UsersPaths } from "./generated/schemas/users";
+import { paths as ThingsPaths } from "./generated/schemas/things";
 
-import Mainflux from "./main";
+interface Params {
+  authToken?: string;
+}
 
-export function createMainfluxInstance(baseUrl: string): Mainflux {
-  const http = axios.create({
-    baseURL: baseUrl,
-  });
+export function createMainfluxInstance(baseUrl: string, { authToken }: Params = {}) {
+  function getFetcher<P>() {
+    const fetcher = Fetcher.for<P>();
 
-  return new Mainflux(http);
+    fetcher.configure({
+      baseUrl,
+      ...(authToken && {
+        init: {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      }),
+    });
+
+    return fetcher;
+  }
+
+  const usersFetcher = getFetcher<UsersPaths>();
+  const thingsFetcher = getFetcher<ThingsPaths>();
+
+  return {
+    users: {
+      createToken: usersFetcher.path("/tokens").method("post").create(),
+    },
+    things: {
+      list: thingsFetcher.path("/things").method("get").create(),
+    },
+  };
 }
