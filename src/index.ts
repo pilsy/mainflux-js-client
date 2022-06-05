@@ -1,6 +1,7 @@
 import { Fetcher } from "openapi-typescript-fetch";
 import { paths as UsersPaths } from "./generated/schemas/users";
 import { paths as ThingsPaths } from "./generated/schemas/things";
+import { paths as ReadersPaths } from "./generated/schemas/readers";
 
 export interface MainfluxInstanceOptions {
   authToken?: string;
@@ -26,6 +27,7 @@ export function createMainfluxInstance(baseUrl: string, { authToken }: MainfluxI
 
   const usersFetcher = getFetcher<UsersPaths>();
   const thingsFetcher = getFetcher<ThingsPaths>();
+  const readersFetcher = getFetcher<ReadersPaths>();
 
   return {
     users: {
@@ -37,6 +39,7 @@ export function createMainfluxInstance(baseUrl: string, { authToken }: MainfluxI
     },
     channels: {
       list: thingsFetcher.path("/channels").method("get").create(),
+      getMessages: readersFetcher.path("/reader/channels/{chanId}/messages").method("get").create(),
     },
   };
 }

@@ -5,7 +5,7 @@ info:
   version: "1.0.0"
 
 paths:
-  /channels/{chanId}/messages:
+  /reader/channels/{chanId}/messages:
     get:
       summary: Retrieves messages sent to single channel
       description: |
@@ -27,6 +27,7 @@ paths:
         - $ref: "#/components/parameters/DataValue"
         - $ref: "#/components/parameters/From"
         - $ref: "#/components/parameters/To"
+        - $ref: "#/components/parameters/Subtopic"
       responses:
         "200":
           $ref: "#/components/responses/MessagesPageRes"
@@ -203,6 +204,13 @@ components:
       in: query
       schema:
         type: number
+      required: false
+    Subtopic:
+      name: subtopic
+      description: Subtopic name.
+      in: query
+      schema:
+        type: string
       required: false
 
   responses:
