@@ -35,5 +35,8 @@ export function createMainfluxInstance(baseUrl: string, { authToken }: MainfluxI
     things: {
       list: thingsFetcher.path("/things").method("get").create(),
     },
+    channels: {
+      list: thingsFetcher.path("/channels").method("get").create(),
+    },
   };
 }
