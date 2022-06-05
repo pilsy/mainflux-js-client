@@ -868,8 +868,7 @@ components:
       in: query
       required: false
       schema:
-        type: object
-        additionalProperties: {}
+        type: string
 
   requestBodies:
     ThingCreateReq:
