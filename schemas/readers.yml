@@ -135,7 +135,7 @@ components:
         minimum: 0
       required: false
     Publisher:
-      name: Publisher
+      name: publisher
       description: Unique thing identifier.
       in: query
       schema:
